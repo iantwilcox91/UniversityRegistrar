@@ -141,7 +141,7 @@ namespace University
       conn.Close();
     }
 
-    public List<Courses> ViewCourses()
+    public List<Course> ViewCourses()
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
@@ -155,7 +155,7 @@ namespace University
 
       SqlDataReader rdr = cmd.ExecuteReader();
 
-      List<Courses> courseList = new List<Courses>{};
+      List<Course> courseList = new List<Course>{};
 
       while(rdr.Read())
       {
@@ -190,6 +190,37 @@ namespace University
       cmd.ExecuteNonQuery();
 
       conn.Close();
+    }
+    public static Student Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      string query = "SELECT * FROM students WHERE id = @studentId;";
+      SqlCommand cmd = new SqlCommand(query, conn);
+      SqlParameter paramId = new SqlParameter("@studentId", id );
+      cmd.Parameters.Add(paramId);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int studentId = 0;
+      string studentName = null;
+      DateTime enrollment = new DateTime(0000-00-00);
+      while(rdr.Read())
+      {
+        studentId = rdr.GetInt32(0);
+        studentName = rdr.GetString(1);
+        enrollment = rdr.GetDateTime(2);
+      }
+      Student newStudent = new Student(studentName, enrollment, studentId);
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return newStudent;
     }
 
     public override int GetHashCode()

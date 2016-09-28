@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Register Students</title>
+  </head>
+  <body>
+    <h1>Courses</h1>
+    @foreach (var course in Model["courseList"])
+    {
+      <h4><a href="/">@course.GetName()</a><small> @course.GetNumber()</small></h4>
+    }
+    <p>
+      <h2>Add a course</h2>
+      <form action="/add_course" method="post">
+        <input type="string" name="courseName" placeholder="Enter a course name"><br>
+        <input type="string" name="courseNumber" placeholder="Enter a course Number">
+        <button type="submit">submit</button>
+      </form>
+    </p>
+
+    <form action="/delete_all_courses" method="post">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit">Delete All Courses</button>
+    </form>
+    <h1>Students</h1>
+    @foreach (var student in Model["studentList"])
+    {
+      <h4><a href="/">@student.GetName()</a></h4>
+    }
+    <p>
+      <h2>Add a student</h2>
+      <form action="/add_student" method="post">
+        <input type="string" name="studentName" placeholder="Enter this students name"><br>
+        <input type="date" name="enrollment">
+        <button type="submit">submit</button>
+      </form>
+    </p>
+
+    <form action="/delete_all_students" method="post">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit">Delete All Students</button>
+    </form>
+    <br>
+    <a href="/">Reload Page</a>
+
+
+  </div>
+  </body>
+</html>

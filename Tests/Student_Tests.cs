@@ -65,6 +65,22 @@ namespace University
       //Assert
       Assert.Equal(resultStudents , allStudents);
     }
+    [Fact]
+    public void Test_Find_WillReturnAStudent()
+    {
+      //Arrange
+      DateTime enrollment = new DateTime(2008,8,4);
+      Student student =  new Student ("Ian", enrollment);
+      student.Save();
+      DateTime enrollment2 = new DateTime(2008,8,4);
+      Student student2 =  new Student ("Jonathan", enrollment2);
+      student2.Save();
+      //Act
+      Student foundStudent = Student.Find( student2.GetId() );
+      //Assert
+      Assert.Equal(student2, foundStudent);
+
+    }
 
     public void Dispose()
     {

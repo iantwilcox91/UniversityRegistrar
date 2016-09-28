@@ -96,18 +96,6 @@ namespace University
 
     public static void DeleteAll()
     {
-      // SqlConnection conn1 = DB.Connection();
-      // conn1.Open();
-      // SqlCommand cmd1 = new SqlCommand("DELETE FROM students_courses;", conn1);
-      // cmd1.ExecuteNonQuery();
-      // conn1.Close();
-      //
-      // SqlConnection conn = DB.Connection();
-      // conn.Open();
-      // SqlCommand cmd = new SqlCommand("DELETE FROM courses;", conn);
-      // cmd.ExecuteNonQuery();
-      // conn.Close();
-
       SqlConnection conn = DB.Connection();
       conn.Open();
       SqlCommand cmd = new SqlCommand("DELETE FROM students_courses;", conn);
