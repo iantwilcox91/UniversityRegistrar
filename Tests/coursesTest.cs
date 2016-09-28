@@ -60,10 +60,34 @@ namespace University
       Assert.Equal(allCourses , resultCourses);
     }
 
-
+    [Fact]
+    public void Test_TestToSeeIfJoinTableIsEmpty()
+    {
+      Course course = new Course ("Chemistry of undergraound", "Chem102");
+      int tableRows = course.ViewStudents().Count;
+      //Assert
+      Assert.Equal( 0, tableRows);
+    }
+    [Fact]
+    public void Test_AddStudents_CanAddAStudentToAClass()
+    {
+      //Arrange
+      Course newCourse = new Course ("Shakespear Style" , "Eng220");
+      newCourse.Save();
+      DateTime enrollment = new DateTime(2008,8,4);
+      Student student =  new Student ("Steven", enrollment);
+      student.Save();
+      //Act
+      newCourse.AddStudent(student);
+      //Assert
+      List<Student> staticList = new List<Student> {student};
+      List<Student> studentList = newCourse.ViewStudents();
+      Assert.Equal(staticList, studentList);
+    }
     public void Dispose()
     {
       Course.DeleteAll();
+      Student.DeleteAll();
     }
   }
 }

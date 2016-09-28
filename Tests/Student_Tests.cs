@@ -38,7 +38,7 @@ namespace University
     {
       //Arrange
       DateTime enrollment = new DateTime(2008,8,4);
-      Student student =  new Student ("Jerry", enrollment);
+      Student student =  new Student ("Sid", enrollment);
       //Act
       student.Save();
       //Assert
@@ -66,11 +66,9 @@ namespace University
       Assert.Equal(resultStudents , allStudents);
     }
 
-
-
-
     public void Dispose()
     {
+      Course.DeleteAll();
       Student.DeleteAll();
     }
 

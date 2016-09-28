@@ -141,6 +141,57 @@ namespace University
       conn.Close();
     }
 
+    public List<Courses> ViewCourses()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT courses.* FROM students JOIN students_courses ON (students.id = students_courses.students_id) JOIN courses ON (students_courses.courses_id = courses.id) WHERE students.id = @StudentId;", conn);
+      SqlParameter StudentIdParam = new SqlParameter();
+      StudentIdParam.ParameterName = "@StudentId";
+      StudentIdParam.Value = this.GetId().ToString();
+
+      cmd.Parameters.Add(StudentIdParam);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Courses> courseList = new List<Courses>{};
+
+      while(rdr.Read())
+      {
+        int courseId = rdr.GetInt32(0);
+        string courseName = rdr.GetString(1);
+        string courseNumber = rdr.GetString(2);
+        Course newCourse = new Course(courseName, courseNumber, courseId);
+        courseList.Add(newCourse);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return courseList;
+    }
+    public void AddCourse(Course course)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      string query = "INSERT INTO students_courses (students_id , courses_id) VAlUES (@studentId ,@courseId );";
+      SqlCommand cmd = new SqlCommand(query, conn);
+      SqlParameter pamCourseId = new SqlParameter("@courseId", course.GetId() );
+      cmd.Parameters.Add(pamCourseId);
+      SqlParameter pamStudentId = new SqlParameter("@studentId", this._id );
+      cmd.Parameters.Add(pamStudentId);
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+    }
+
     public override int GetHashCode()
     {
       return this.GetId().GetHashCode();
