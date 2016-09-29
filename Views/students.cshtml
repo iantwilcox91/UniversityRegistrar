@@ -5,8 +5,23 @@
     <title>This Student</title>
   </head>
   <body>
-
-
+    <h1>@Model["student"].GetName()</h1>
+    <h3>Classes</h3>
+    @foreach (var course in Model["courses"])
+    {
+      <h4>@course.GetName()</h4>
+    }
+    <h2>Add a course</h2>
+    <form action='/student/@Model["student"].GetId()' method="post">
+      <select name="course">
+        @foreach (var course in Model["allCourses"])
+        {
+        <option value="@course.GetId()">@course.GetName()</option>
+        }
+      </select>
+      <button type="submit">submit</button>
+    </form>
+    <br>
     <a href="/">Return to the Homepage</a>
   </body>
 </html>

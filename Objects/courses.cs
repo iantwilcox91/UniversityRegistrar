@@ -204,6 +204,37 @@ namespace University
 
       conn.Close();
     }
+    public static Course Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      string query = "SELECT * FROM courses WHERE id = @courseId;";
+      SqlCommand cmd = new SqlCommand(query, conn);
+      SqlParameter paramId = new SqlParameter("@courseId", id );
+      cmd.Parameters.Add(paramId);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int courseId = 0;
+      string courseName = null;
+      string courseNumber = null;
+      while(rdr.Read())
+      {
+        courseId = rdr.GetInt32(0);
+        courseName = rdr.GetString(1);
+        courseNumber = rdr.GetString(2);
+      }
+      Course course = new Course( courseName, courseNumber, courseId);
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return course;
+    }
 
   }
 }

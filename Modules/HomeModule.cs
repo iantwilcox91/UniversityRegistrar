@@ -52,16 +52,22 @@ namespace University
         return View["index.cshtml", model];
       };
 
-      // Get["/students/{id}"] = parameter =>
-      // {
-      //   Student student = Student.Find(parameter.id);
-      //   List<Course> studentCourses = student.ViewCourses();
-      //
-      // };
+      Get["/students/{id}"] = parameter =>
+      {
+        Dictionary<string, object> model = RoutingView.GetStudentView(parameter.id);
+        return View["students.cshtml", model];
+      };
+
+      Post["/student/{id}"] = parameter =>
+      {
+        Student student = Student.Find(parameter.id);
+        Course course = Course.Find(Request.Form["course"]);
+        student.AddCourse(course);
+        Dictionary<string, object> model = RoutingView.GetStudentView(parameter.id);
+        return View["students.cshtml", model];
+      };
 
 
     }
-
-
   }
 }
