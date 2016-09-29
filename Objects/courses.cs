@@ -173,9 +173,6 @@ namespace University
         string studentName = rdr.GetString(1);
         DateTime enrollment = rdr.GetDateTime(2);
         Student newStudent = new Student(studentName, enrollment, studentId);
-        Console.WriteLine(studentId);
-        Console.WriteLine(studentName );
-        Console.WriteLine(enrollment);
         studentList.Add(newStudent);
       }
 

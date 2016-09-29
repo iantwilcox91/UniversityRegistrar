@@ -8,7 +8,7 @@
     <h1>Courses</h1>
     @foreach (var course in Model["courseList"])
     {
-      <h4><a href="/courses/course.GetId()">@course.GetName()</a><small> @course.GetNumber()</small></h4>
+      <h4><a href="/courses/@course.GetId()">@course.GetName()</a><small> @course.GetNumber()</small></h4>
     }
     <p>
       <h2>Add a course</h2>

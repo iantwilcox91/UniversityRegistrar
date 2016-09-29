@@ -27,5 +27,17 @@ namespace University
       model.Add("allCourses", allCourses);
       return model;
     }
+
+    public static Dictionary<string, object> GetCourseView(int id)
+    {
+      Course course = Course.Find(id);
+      List<Student> coursesStudents = course.ViewStudents();
+      List<Student> allStudents = Student.GetAll();
+      Dictionary<string ,object> model = new Dictionary<string, object> {};
+      model.Add("course", course);
+      model.Add("students", coursesStudents);
+      model.Add("allStudents", allStudents);
+      return model;
+    }
   }
 }

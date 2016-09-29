@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>This Course</title>
+  </head>
+  <body>
+    <h1>@Model["course"].GetName()</h1>
+    <h3>Students</h3>
+
+
+    @foreach (var course in Model["students"])
+    {
+      <h4>@course.GetName()</h4>
+    }
+
+
+
+    <h2>Add a student</h2>
+    <form action='/course/@Model["course"].GetId()' method="post">
+      <select name="student">
+        @foreach (var student in Model["allStudents"])
+        {
+        <option value="@student.GetId()">@student.GetName()</option>
+        }
+      </select>
+      <button type="submit">submit</button>
+    </form>
+
+
+    <br>
+    <a href="/">Return to the Homepage</a>
+  </body>
+</html>

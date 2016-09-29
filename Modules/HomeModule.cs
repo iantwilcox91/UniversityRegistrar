@@ -67,6 +67,21 @@ namespace University
         return View["students.cshtml", model];
       };
 
+      Get["/courses/{id}"] = parameter =>
+      {
+        Dictionary<string, object> model = RoutingView.GetCourseView(parameter.id);
+        return View["courses.cshtml", model];
+      };
+
+      Post["/course/{id}"] = parameter =>
+      {
+        Course course = Course.Find(parameter.id);
+        Student student = Student.Find(Request.Form["student"]);
+        course.AddStudent(student);
+        Dictionary<string, object> model = RoutingView.GetCourseView(parameter.id);
+        return View["courses.cshtml", model];
+      };
+
 
     }
   }
